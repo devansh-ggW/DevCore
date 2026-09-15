@@ -1,43 +1,45 @@
 !macro customInstall
-  ; Register DevCore in Windows "Open with" for common developer/text files.
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\shell\open\command" "" '"$INSTDIR\${APP_EXECUTABLE_FILENAME}" "%1"'
+  ; Register DevCore in the current user's Open With list.
+  ; HKCU avoids requiring a machine-wide registry change just for file associations.
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}" "FriendlyAppName" "DevCore"
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\shell\open\command" "" '"$INSTDIR\${APP_EXECUTABLE_FILENAME}" "%1"'
 
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".txt" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".md" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".json" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".js" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".jsx" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".ts" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".tsx" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".html" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".htm" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".css" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".py" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".java" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".c" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".h" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".cpp" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".hpp" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".cs" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".go" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".rs" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".xml" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".yaml" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".yml" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".sql" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".bat" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".cmd" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".ps1" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".vue" ""
-  WriteRegStr HKCR "Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".svelte" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".txt" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".md" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".json" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".js" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".jsx" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".ts" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".tsx" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".html" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".htm" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".css" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".py" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".java" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".c" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".h" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".cpp" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".hpp" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".cs" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".go" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".rs" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".xml" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".yaml" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".yml" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".sql" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".bat" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".cmd" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".ps1" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".vue" ""
+  WriteRegStr HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" ".svelte" ""
 
-  ; Also keep a direct right-click entry for quick access.
-  WriteRegStr HKCR "*\shell\DevCore" "" "Open with DevCore"
-  WriteRegStr HKCR "*\shell\DevCore" "Icon" "$INSTDIR\${APP_EXECUTABLE_FILENAME}"
-  WriteRegStr HKCR "*\shell\DevCore\command" "" '"$INSTDIR\${APP_EXECUTABLE_FILENAME}" "%1"'
+  ; Direct right-click entry as a convenient fallback.
+  WriteRegStr HKCU "Software\Classes\*\shell\DevCore" "" "Open with DevCore"
+  WriteRegStr HKCU "Software\Classes\*\shell\DevCore" "Icon" "$INSTDIR\${APP_EXECUTABLE_FILENAME}"
+  WriteRegStr HKCU "Software\Classes\*\shell\DevCore\command" "" '"$INSTDIR\${APP_EXECUTABLE_FILENAME}" "%1"'
 !macroend
 
 !macro customUnInstall
-  DeleteRegKey HKCR "Applications\${APP_EXECUTABLE_FILENAME}"
-  DeleteRegKey HKCR "*\shell\DevCore"
+  DeleteRegKey HKCU "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}"
+  DeleteRegKey HKCU "Software\Classes\*\shell\DevCore"
 !macroend
