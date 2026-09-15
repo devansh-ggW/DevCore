@@ -1,9 +1,9 @@
 {
   "name": "devcore",
   "productName": "DevCore",
-  "version": "1.0.0",
-  "description": "DevCore - A modern code editor with intelligent slash commands",
-  "main": "main.js",
+  "version": "1.0.1",
+  "description": "DevCore - A lightweight developer workspace with intelligent slash commands",
+  "main": "bootstrap.js",
   "author": "DevCore",
   "scripts": {
     "start": "electron .",
@@ -21,14 +21,25 @@
   "build": {
     "appId": "com.devcore.app",
     "productName": "DevCore",
+    "compression": "maximum",
     "files": [
-      "**/*"
+      "main.js",
+      "bootstrap.js",
+      "preload.js",
+      "app.js",
+      "commands.js",
+      "index.html",
+      "style.css",
+      "lazy-monaco.js",
+      "icon.ico",
+      "node_modules/monaco-editor/min/vs/**/*"
     ],
     "win": {
       "target": "nsis",
       "icon": "icon.ico"
     },
     "nsis": {
+      "include": "installer.nsh",
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
