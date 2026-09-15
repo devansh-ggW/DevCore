@@ -1,0 +1,3 @@
+BROSKI = input("BROSKI ARE YOU GOOD??:")
+if BROSKI == "yes":
+    print("YAY BROSKI IAM HAPPY THAT YOU ARE GOOD!!")

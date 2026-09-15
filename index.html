@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DevCore</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="toolbar">
+    <div class="brand"><div class="brand-mark">D</div><span>DevCore</span></div>
+    <div class="top-actions">
+      <button id="btn-open-folder" class="toolbar-btn" title="Open workspace"><span class="icon">▱</span> Open Folder</button>
+      <button id="btn-save" class="toolbar-btn" title="Save (Ctrl+S)">Save</button>
+      <button id="btn-run" class="run-btn" title="Run (Ctrl+Enter)"><span>▶</span> Run</button>
+      <button id="btn-stop" class="toolbar-btn stop-btn" disabled title="Stop running process">■ Stop</button>
+    </div>
+    <div class="window-actions">
+      <button id="btn-command-palette" class="toolbar-icon" title="Command Palette (Ctrl+K)">⌘</button>
+      <button id="btn-workspace-fullscreen" class="toolbar-icon" title="Focus workspace">⛶</button>
+      <span class="window-drag"></span>
+      <button id="btn-window-minimize" class="window-control" title="Minimize">—</button>
+      <button id="btn-window-maximize" class="window-control" title="Maximize">□</button>
+      <button id="btn-window-close" class="window-control close" title="Close">×</button>
+    </div>
+  </header>
+
+  <main id="main-area">
+    <aside id="activity-bar">
+      <button id="activity-explorer" class="activity-icon active" title="Explorer">▤</button>
+      <div class="activity-spacer"></div>
+      <button id="activity-save" class="activity-icon" title="Save">↓</button>
+    </aside>
+
+    <aside id="explorer-panel">
+      <div class="panel-head">
+        <span>EXPLORER</span>
+        <div class="panel-actions">
+          <button id="btn-refresh" title="Refresh workspace">↻</button>
+          <button id="btn-new-folder" title="New folder">＋</button>
+          <button id="btn-collapse" title="Collapse explorer">‹</button>
+        </div>
+      </div>
+      <div id="workspace-label">NO FOLDER OPEN</div>
+      <div id="file-tree" class="file-tree"></div>
+      <div class="explorer-bottom">
+        <button class="section-row" id="outline-toggle"><span>OUTLINE</span><span>›</span></button>
+        <div class="section-content muted-small">Symbols appear here when a file is open.</div>
+        <button class="section-row" id="problems-toggle" title="Show problems"><span>PROBLEMS</span><span id="problem-count">0</span></button>
+      </div>
+    </aside>
+
+    <section id="workspace">
+      <div id="editor-top">
+        <div id="breadcrumb"><span class="crumb-root">DevCore</span><span>›</span><span id="crumb-file">untitled</span></div>
+        <div id="editor-view-actions">
+          <button id="btn-editor-fullscreen" title="Focus editor">⛶</button>
+        </div>
+      </div>
+      <div id="editor-tabs"></div>
+      <div id="editor-container">
+        <div id="editor-empty">
+          <div class="empty-card">
+            <div class="empty-mark">D</div>
+            <div class="empty-title">Start coding.</div>
+            <div class="empty-subtitle">Open a workspace or create a file.</div>
+            <div class="empty-actions">
+              <button id="empty-open-folder">Open Folder</button>
+              <button id="empty-new-file">New File</button>
+            </div>
+            <div class="empty-hint"><kbd>Ctrl</kbd><kbd>S</kbd> Save &nbsp; <kbd>Ctrl</kbd><kbd>Enter</kbd> Run &nbsp; <kbd>Ctrl</kbd><kbd>K</kbd> Commands</div>
+          </div>
+        </div>
+      </div>
+
+      <section id="terminal">
+        <div id="terminal-header">
+          <div class="terminal-title"><span class="terminal-pulse"></span><span>TERMINAL</span><span id="terminal-cwd" class="terminal-cwd"></span></div>
+          <div class="terminal-actions">
+            <button id="btn-new-terminal" title="New terminal">＋</button>
+            <button id="btn-clear-terminal" title="Clear terminal">Clear</button>
+            <button id="btn-terminal-fullscreen" title="Maximize terminal">⛶</button>
+          </div>
+        </div>
+        <div id="terminal-output" tabindex="0"></div>
+        <input id="terminal-input" class="terminal-input-capture" autocomplete="off" spellcheck="false" aria-label="Terminal input">
+      </section>
+    </section>
+  </main>
+
+  <div id="slash-popup" class="slash-popup hidden"></div>
+
+  <div id="command-palette" class="overlay hidden">
+    <div class="palette">
+      <input id="palette-input" placeholder="Type a command…" autocomplete="off">
+      <div id="palette-list"></div>
+    </div>
+  </div>
+
+  <footer id="statusbar">
+    <div class="status-left"><span id="status-language">Plain Text</span><span id="status-workspace">No workspace</span></div>
+    <div class="status-right"><span id="status-position">Ln 1, Col 1</span><span>Spaces: 4</span><span>UTF-8</span><span>LF</span></div>
+  </footer>
+
+  <script src="node_modules/monaco-editor/min/vs/loader.js"></script>
+  <script src="commands.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

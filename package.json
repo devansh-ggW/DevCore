@@ -1,0 +1,39 @@
+{
+  "name": "devcore",
+  "productName": "DevCore",
+  "version": "1.0.0",
+  "description": "DevCore - A modern code editor with intelligent slash commands",
+  "main": "main.js",
+  "author": "DevCore",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "dependencies": {
+    "monaco-editor": "^0.50.0",
+    "npm": "^12.0.2",
+    "start": "^5.1.0"
+  },
+  "build": {
+    "appId": "com.devcore.app",
+    "productName": "DevCore",
+    "files": [
+      "**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "DevCore"
+    }
+  }
+}
