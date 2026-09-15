@@ -1,7 +1,7 @@
 {
   "name": "devcore",
   "productName": "DevCore",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "DevCore - A lightweight developer workspace with intelligent slash commands",
   "main": "bootstrap.js",
   "author": "DevCore",
@@ -14,9 +14,7 @@
     "electron-builder": "^24.13.3"
   },
   "dependencies": {
-    "monaco-editor": "^0.50.0",
-    "npm": "^12.0.2",
-    "start": "^5.1.0"
+    "monaco-editor": "^0.50.0"
   },
   "build": {
     "appId": "com.devcore.app",
@@ -32,6 +30,7 @@
       "style.css",
       "lazy-monaco.js",
       "icon.ico",
+      "installer.nsh",
       "node_modules/monaco-editor/min/vs/**/*"
     ],
     "win": {
