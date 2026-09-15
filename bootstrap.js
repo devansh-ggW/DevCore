@@ -93,6 +93,12 @@ if (!gotLock) {
   });
 
   app.on('browser-window-created', (event, win) => {
+    // Show the shell as soon as the DOM is ready instead of waiting for the
+    // heavier Monaco editor to finish initializing.
+    win.webContents.once('dom-ready', () => {
+      if (!win.isDestroyed()) win.show();
+    });
+
     if (!initialFilePath) return;
     const filePath = initialFilePath;
     initialFilePath = null;
