@@ -2,6 +2,7 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('devcore', {
   openFile: () => ipcRenderer.invoke('open-file'),
+  openFilePath: (filePath) => ipcRenderer.invoke('open-file-path', { filePath }),
   openFolder: () => ipcRenderer.invoke('open-folder'),
   listDirectory: (dirPath) => ipcRenderer.invoke('list-directory', { dirPath }),
   createFile: (dirPath, name) => ipcRenderer.invoke('create-file', { dirPath, name }),
