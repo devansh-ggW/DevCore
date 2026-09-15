@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const fs = require('fs');
+const { execFileSync } = require('child_process');
 
 const MAX_TEXT_FILE_BYTES = 2 * 1024 * 1024;
 let initialFilePath = null;
@@ -9,7 +10,7 @@ function findFileArgument(argv) {
   for (let i = argv.length - 1; i >= 1; i -= 1) {
     const raw = String(argv[i] || '').trim();
     if (!raw || raw.startsWith('-')) continue;
-    const candidate = raw.replace(/^"|"$/g, '');
+    const candidate = raw.replace(/^\"|\"$/g, '');
     try {
       if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) {
         return path.resolve(candidate);
@@ -40,6 +41,51 @@ function readTextFile(filePath) {
 }
 
 ipcMain.handle('open-file-path', (event, { filePath }) => readTextFile(filePath));
+
+function writeReg(key, valueName, value) {
+  try {
+    const args = ['add', key, '/v', valueName, '/t', 'REG_SZ', '/d', value, '/f'];
+    execFileSync('reg.exe', args, { windowsHide: true, stdio: 'ignore' });
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
+function deleteRegKey(key) {
+  try {
+    execFileSync('reg.exe', ['delete', key, '/f'], { windowsHide: true, stdio: 'ignore' });
+  } catch (_) {}
+}
+
+function registerWindowsFileAssociations() {
+  if (process.platform !== 'win32') return;
+
+  const exePath = process.execPath;
+  const exeName = path.basename(exePath);
+  const command = `\"${exePath}\" \"%1\"`;
+  const classes = 'HKCU\\Software\\Classes';
+  const appKey = `${classes}\\Applications\\${exeName}`;
+
+  // Friendly name + standard Open With registration.
+  writeReg(appKey, 'FriendlyAppName', 'DevCore');
+  writeReg(`${appKey}\\shell\\open\\command`, '', command);
+
+  const supported = [
+    '.txt', '.md', '.json', '.js', '.jsx', '.ts', '.tsx', '.html', '.htm',
+    '.css', '.py', '.java', '.c', '.h', '.cpp', '.hpp', '.cs', '.go', '.rs',
+    '.xml', '.yaml', '.yml', '.sql', '.bat', '.cmd', '.ps1', '.vue', '.svelte'
+  ];
+  for (const ext of supported) {
+    writeReg(`${appKey}\\SupportedTypes`, ext, '');
+  }
+
+  // Direct right-click entry as a fallback.
+  const shellKey = `${classes}\\*\\shell\\DevCore`;
+  writeReg(shellKey, '', 'Open with DevCore');
+  writeReg(shellKey, 'Icon', exePath);
+  writeReg(`${shellKey}\\command`, '', command);
+}
 
 function deliverExternalFile(win, filePath) {
   if (!win || win.isDestroyed()) return;
@@ -79,6 +125,12 @@ if (!gotLock) {
 } else {
   initialFilePath = findFileArgument(process.argv);
 
+  app.whenReady().then(() => {
+    // Register in HKCU on every launch so this works even when the installer
+    // was not run as administrator and when DevCore is launched from a portable build.
+    registerWindowsFileAssociations();
+  });
+
   app.on('second-instance', (event, commandLine) => {
     const filePath = findFileArgument(commandLine);
     const win = BrowserWindow.getAllWindows()[0];
@@ -93,8 +145,6 @@ if (!gotLock) {
   });
 
   app.on('browser-window-created', (event, win) => {
-    // Show the shell as soon as the DOM is ready instead of waiting for the
-    // heavier Monaco editor to finish initializing.
     win.webContents.once('dom-ready', () => {
       if (!win.isDestroyed()) win.show();
     });
